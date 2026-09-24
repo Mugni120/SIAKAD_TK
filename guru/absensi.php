@@ -478,7 +478,7 @@ $total_siswa = $row_hitung['total'] ?? 0;
                                 </td>
 
                                 <td>
-                                    <input type="text" name="catatan[<?php echo $siswa['id_siswa']; ?>]" class="input-note" placeholder="Tambah catatan...">
+                                    <input type="text" name="keterangan[<?php echo $siswa['id_siswa']; ?>]" class="input-note" placeholder="Tambah catatan...">
                                 </td>
                             </tr>
                         <?php } ?>
