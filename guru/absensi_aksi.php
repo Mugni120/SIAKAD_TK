@@ -5,6 +5,7 @@ if(!isset($_SESSION['level']) || $_SESSION['level'] != "Guru"){
     exit();
 }
 include '../config/koneksi.php';
+include '../config/wa_gateway.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil ID Guru (sesuaikan dengan nama session saat login)
@@ -34,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Jalankan eksekusi query
         mysqli_query($koneksi, $sql_aksi);
+
+        // Kirim notifikasi WhatsApp ke orang tua
+        wa_notif_absensi($id_siswa, $status, $tanggal, $keterangan_array[$id_siswa]);
     }
     
     // Kembalikan ke halaman absen dengan pesan sukses

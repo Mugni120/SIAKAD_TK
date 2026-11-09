@@ -1,9 +1,16 @@
 <?php
+// Proteksi halaman: hanya Admin yang boleh mengakses (lihat pola admin/dashboard.php)
+session_start();
+if(!isset($_SESSION['level']) || $_SESSION['level'] != "Admin"){
+    header("location:../login.php?pesan=belum_login");
+    exit();
+}
+
 include 'template/header.php'; 
 include '../config/koneksi.php';
 
 // Ambil ID dari URL
-$id = $_GET['id'];
+$id = intval($_GET['id'] ?? 0);
 $query = mysqli_query($koneksi, "SELECT * FROM pengumuman WHERE id_pengumuman='$id'");
 $data = mysqli_fetch_assoc($query);
 

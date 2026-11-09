@@ -112,3 +112,96 @@ CREATE TABLE IF NOT EXISTS `pengumuman` (
     `tanggal_buat` DATE NOT NULL,
     PRIMARY KEY (`id_pengumuman`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABEL UNTUK FITUR WHATSAPP GATEWAY
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS `wa_logs` (
+    `id_wa` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `nomor_tujuan` VARCHAR(30) NOT NULL,
+    `pesan` TEXT NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'pending',
+    `waktu_kirim` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `tipe` VARCHAR(50) DEFAULT NULL,
+    `response` TEXT NULL,
+    PRIMARY KEY (`id_wa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABEL UNTUK FITUR PAYMENT GATEWAY (SPP)
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS `tagihan` (
+    `id_tagihan` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_siswa` INT UNSIGNED NOT NULL,
+    `bulan` VARCHAR(20) NOT NULL,
+    `tahun` YEAR NOT NULL,
+    `jumlah` DECIMAL(12,2) NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'belum_bayar',
+    `tanggal_buat` DATE NOT NULL DEFAULT (CURRENT_DATE),
+    PRIMARY KEY (`id_tagihan`),
+    UNIQUE KEY `uq_tagihan_siswa_bulan_tahun` (`id_siswa`, `bulan`, `tahun`),
+    KEY `idx_tagihan_siswa` (`id_siswa`),
+    CONSTRAINT `fk_tagihan_siswa`
+        FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `transaksi` (
+    `id_transaksi` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_tagihan` INT UNSIGNED NOT NULL,
+    `order_id` VARCHAR(100) NOT NULL,
+    `payment_type` VARCHAR(50) DEFAULT NULL,
+    `transaction_status` VARCHAR(30) NOT NULL DEFAULT 'pending',
+    `gross_amount` DECIMAL(12,2) NOT NULL,
+    `transaction_time` DATETIME DEFAULT NULL,
+    `settlement_time` DATETIME DEFAULT NULL,
+    `va_number` VARCHAR(50) DEFAULT NULL,
+    `bank` VARCHAR(20) DEFAULT NULL,
+    `pdf_url` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_transaksi`),
+    UNIQUE KEY `uq_transaksi_order_id` (`order_id`),
+    KEY `idx_transaksi_tagihan` (`id_tagihan`),
+    CONSTRAINT `fk_transaksi_tagihan`
+        FOREIGN KEY (`id_tagihan`) REFERENCES `tagihan` (`id_tagihan`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABEL UNTUK FITUR QR CODE ABSENSI
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS `siswa_qr` (
+    `id_qr` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_siswa` INT UNSIGNED NOT NULL,
+    `kode_qr` VARCHAR(100) NOT NULL,
+    `tanggal_buat` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_qr`),
+    UNIQUE KEY `uq_siswa_qr_siswa` (`id_siswa`),
+    UNIQUE KEY `uq_siswa_qr_kode` (`kode_qr`),
+    CONSTRAINT `fk_siswa_qr_siswa`
+        FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABEL UNTUK FITUR K-MEANS CLUSTERING
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS `clustering_results` (
+    `id_clustering` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_siswa` INT UNSIGNED NOT NULL,
+    `semester` VARCHAR(20) NOT NULL,
+    `cluster` INT NOT NULL,
+    `label_cluster` VARCHAR(100) DEFAULT NULL,
+    `skor_rerata` DECIMAL(5,2) DEFAULT NULL,
+    `tanggal_proses` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_clustering`),
+    UNIQUE KEY `uq_clustering_siswa_semester` (`id_siswa`, `semester`),
+    KEY `idx_clustering_cluster` (`cluster`),
+    CONSTRAINT `fk_clustering_siswa`
+        FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id_siswa`)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

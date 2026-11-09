@@ -45,19 +45,34 @@ if (isset($_SESSION['level'])) {
         .landing-card {
             background: #ffffff;
             padding: 45px 35px;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             text-align: center;
             max-width: 500px;
             width: 100%;
         }
         
         .landing-icon {
-            font-size: 65px;
-            margin-bottom: 15px;
-            display: inline-block;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background-color: #f0fdfa;
+            color: #0d9488;
         }
-        
+
+        .landing-eyebrow {
+            color: #0d9488;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
         .landing-card h1 {
             color: #1e293b;
             font-size: 30px;
@@ -105,7 +120,14 @@ if (isset($_SESSION['level'])) {
 
     <div class="landing-wrapper">
         <div class="landing-card">
-            <div class="landing-icon">🏫</div>
+            <div class="landing-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9.5 12 4l9 5.5"/>
+                    <path d="M5 10v9h14v-9"/>
+                    <path d="M9 19v-5h6v5"/>
+                </svg>
+            </div>
+            <div class="landing-eyebrow">Sistem Informasi Akademik</div>
             <h1>SIAKAD</h1>
             <h2>TK Al-Manaarussa'diyyah</h2>
             <p>

@@ -1,5 +1,10 @@
 <?php
 session_start();
+// Proteksi halaman: hanya Orang Tua yang sudah memilih anak yang boleh mengakses
+if(!isset($_SESSION['level']) || $_SESSION['level'] != "Orang Tua" || !isset($_SESSION['id_siswa'])){
+    header("location:../login.php?pesan=belum_login");
+    exit();
+}
 include '../config/koneksi.php';
 $id_siswa = $_SESSION['id_siswa'];
 
@@ -25,7 +30,7 @@ $query_riwayat = mysqli_query($koneksi, "SELECT * FROM absensi WHERE id_siswa = 
     <meta charset="UTF-8">
     <title>Riwayat Absensi - SIAKAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; padding: 40px 20px; color: #1e293b; }
         .container { max-width: 900px; margin: auto; }

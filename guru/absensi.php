@@ -28,6 +28,23 @@ $nama_kelas_aktif = $data_kelas['nama_kelas'] ?? 'Belum Pilih Kelas';
 $hitung_siswa = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM siswa WHERE id_kelas = '$id_kelas_aktif'");
 $row_hitung = mysqli_fetch_assoc($hitung_siswa);
 $total_siswa = $row_hitung['total'] ?? 0;
+
+// Hitung absensi yang sudah ada untuk hari ini
+$tanggal_ini = date('Y-m-d');
+$q_sudah = mysqli_query($koneksi, "SELECT 
+    SUM(CASE WHEN a.status = 'Hadir' THEN 1 ELSE 0 END) as hadir,
+    SUM(CASE WHEN a.status = 'Izin' THEN 1 ELSE 0 END) as izin,
+    SUM(CASE WHEN a.status = 'Sakit' THEN 1 ELSE 0 END) as sakit,
+    SUM(CASE WHEN a.status = 'Alpha' THEN 1 ELSE 0 END) as alpha
+    FROM absensi a 
+    JOIN siswa s ON a.id_siswa = s.id_siswa
+    WHERE a.tanggal = '$tanggal_ini' AND s.id_kelas = '$id_kelas_aktif'");
+$d_sudah = mysqli_fetch_assoc($q_sudah);
+$jml_hadir = $d_sudah['hadir'] ?? 0;
+$jml_izin = $d_sudah['izin'] ?? 0;
+$jml_sakit = $d_sudah['sakit'] ?? 0;
+$jml_alpha = $d_sudah['alpha'] ?? 0;
+$sudah_absen = ($jml_hadir + $jml_izin + $jml_sakit + $jml_alpha) > 0;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -37,7 +54,7 @@ $total_siswa = $row_hitung['total'] ?? 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Absensi Harian - SIAKAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
 
     <style>
         :root {
@@ -393,24 +410,24 @@ $total_siswa = $row_hitung['total'] ?? 0;
                     <div class="stat-icon"><i class="bi bi-check-circle"></i></div>
                     <div class="stat-info">
                         <span class="stat-label">Hadir</span>
-                        <span class="stat-value">-</span>
-                        <span class="stat-desc">Belum disimpan</span>
+                        <span class="stat-value" id="count-hadir"><?php echo $sudah_absen ? $jml_hadir : '0'; ?></span>
+                        <span class="stat-desc" id="desc-hadir"><?php echo $sudah_absen ? 'Terinput' : 'Belum disimpan'; ?></span>
                     </div>
                 </div>
                 <div class="stat-card card-izin">
                     <div class="stat-icon"><i class="bi bi-envelope"></i></div>
                     <div class="stat-info">
                         <span class="stat-label">Izin / Sakit</span>
-                        <span class="stat-value">-</span>
-                        <span class="stat-desc">Rekap harian</span>
+                        <span class="stat-value" id="count-izin"><?php echo $sudah_absen ? ($jml_izin + $jml_sakit) : '0'; ?></span>
+                        <span class="stat-desc" id="desc-izin"><?php echo $sudah_absen ? 'Terinput' : 'Rekap harian'; ?></span>
                     </div>
                 </div>
                 <div class="stat-card card-alpha">
                     <div class="stat-icon"><i class="bi bi-x-circle"></i></div>
                     <div class="stat-info">
                         <span class="stat-label">Alpha</span>
-                        <span class="stat-value">-</span>
-                        <span class="stat-desc">Tanpa keterangan</span>
+                        <span class="stat-value" id="count-alpha"><?php echo $sudah_absen ? $jml_alpha : '0'; ?></span>
+                        <span class="stat-desc" id="desc-alpha"><?php echo $sudah_absen ? 'Terinput' : 'Tanpa keterangan'; ?></span>
                     </div>
                 </div>
             </div>
@@ -487,6 +504,29 @@ $total_siswa = $row_hitung['total'] ?? 0;
             </div>
         </form>
     </div>
+
+    <script>
+    function updateStats() {
+        const radios = document.querySelectorAll('input[type="radio"][name^="status["]:checked');
+        let hadir = 0, izin = 0, sakit = 0, alpha = 0;
+        radios.forEach(r => {
+            if(r.value === 'Hadir') hadir++;
+            else if(r.value === 'Izin') izin++;
+            else if(r.value === 'Sakit') sakit++;
+            else if(r.value === 'Alpha') alpha++;
+        });
+        document.getElementById('count-hadir').textContent = hadir;
+        document.getElementById('count-izin').textContent = izin + sakit;
+        document.getElementById('count-alpha').textContent = alpha;
+        document.getElementById('desc-hadir').textContent = hadir > 0 ? 'Terinput' : 'Belum disimpan';
+        document.getElementById('desc-izin').textContent = (izin + sakit) > 0 ? 'Terinput' : 'Rekap harian';
+        document.getElementById('desc-alpha').textContent = alpha > 0 ? 'Terinput' : 'Tanpa keterangan';
+    }
+    document.querySelectorAll('input[type="radio"][name^="status["]').forEach(r => {
+        r.addEventListener('change', updateStats);
+    });
+    updateStats();
+    </script>
 
 </body>
 

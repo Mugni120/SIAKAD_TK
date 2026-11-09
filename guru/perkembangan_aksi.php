@@ -6,6 +6,7 @@ if(!isset($_SESSION['level']) || $_SESSION['level'] != "Guru"){
 }
 
 include '../config/koneksi.php';
+include '../config/wa_gateway.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ambil data identitas siswa, guru, dan semester
@@ -44,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (mysqli_query($koneksi, $query)) {
+        // Kirim notifikasi WhatsApp ke orang tua
+        wa_notif_laporan($id_siswa, $semester);
+        
         // Jika berhasil, kembali ke halaman utama perkembangan siswa
         header("location:perkembangan.php?semester=" . $semester . "&pesan=sukses");
     } else {

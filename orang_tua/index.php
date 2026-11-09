@@ -30,7 +30,7 @@ if(isset($_GET['id_siswa'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilih Anak - SIAKAD TK AL-MANAARUSSA'DIYYAH</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <style>
         :root { --primary: #0f5132; --bg-body: #f4f6f9; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); margin: 0; padding: 0; }

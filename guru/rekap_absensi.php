@@ -55,7 +55,7 @@ $sudah_absen = $jml_hadir + $jml_izin + $jml_sakit + $jml_alpha;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekap Absensi Harian - SIAKAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <style>
         :root {
             --primary-color: #0f5132;
@@ -363,58 +363,80 @@ $sudah_absen = $jml_hadir + $jml_izin + $jml_sakit + $jml_alpha;
         </div>
 
         <div class="table-card">
-            <table class="rekap-table">
-                <thead>
-                    <tr>
-                        <th width="5%" class="text-center">No</th>
-                        <th width="15%">NISN</th>
-                        <th width="35%">Nama Siswa</th>
-                        <th width="20%" class="text-center">Status Kehadiran</th>
-                        <th width="25%">Catatan Guru</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    // Query LEFT JOIN agar siswa yang belum diabsen tetap muncul
-                    $query_data = mysqli_query($koneksi, "
-                    SELECT s.id_siswa, s.nama_siswa, a.status, a.keterangan 
-                    FROM siswa s 
-                    LEFT JOIN absensi a ON s.id_siswa = a.id_siswa AND a.tanggal = '$tanggal_pilih'
-                    WHERE s.id_kelas = '$id_kelas_aktif' 
-                    ORDER BY s.nama_siswa ASC
-                ");
-
-                    if (mysqli_num_rows($query_data) == 0) {
-                        echo "<tr><td colspan='5' class='text-center' style='padding: 30px; color: #64748b;'>Belum ada data siswa.</td></tr>";
-                    }
-
-                    while ($row = mysqli_fetch_assoc($query_data)) {
-                        // Menentukan warna badge status
-                        $status = $row['status'];
-                        if ($status == 'Hadir') $badge_class = 'badge-hadir';
-                        elseif ($status == 'Izin') $badge_class = 'badge-izin';
-                        elseif ($status == 'Sakit') $badge_class = 'badge-sakit';
-                        elseif ($status == 'Alpha') $badge_class = 'badge-alpha';
-                        else {
-                            $status = 'Belum Diabsen';
-                            $badge_class = 'badge-belum';
-                        }
-                    ?>
+            <form action="absensi_aksi.php" method="POST">
+                <input type="hidden" name="tanggal" value="<?php echo $tanggal_pilih; ?>">
+                <table class="rekap-table">
+                    <thead>
                         <tr>
-                            <td class="text-center" style="color: #64748b;"><?php echo $no++; ?></td>
-                            <td style="color: #64748b; font-size: 13px;"><?php echo str_pad($row['id_siswa'], 8, '0', STR_PAD_LEFT); ?></td>
-                            <td style="font-weight: 600; color: #1e293b;"><?php echo $row['nama_siswa']; ?></td>
-                            <td class="text-center">
-                                <span class="status-badge <?php echo $badge_class; ?>"><?php echo $status; ?></span>
-                            </td>
-                            <td style="color: #64748b; font-style: italic; font-size: 13px;">
-                                <?php echo !empty($row['keterangan']) ? $row['keterangan'] : '-'; ?>
-                            </td>
+                            <th width="5%" class="text-center">No</th>
+                            <th width="15%">NISN</th>
+                            <th width="30%">Nama Siswa</th>
+                            <th width="10%" class="text-center">Hadir</th>
+                            <th width="10%" class="text-center">Izin</th>
+                            <th width="10%" class="text-center">Sakit</th>
+                            <th width="10%" class="text-center">Alpha</th>
+                            <th width="10%">Catatan</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $no = 1;
+                        $query_data = mysqli_query($koneksi, "
+                        SELECT s.id_siswa, s.nama_siswa, a.status, a.keterangan 
+                        FROM siswa s 
+                        LEFT JOIN absensi a ON s.id_siswa = a.id_siswa AND a.tanggal = '$tanggal_pilih'
+                        WHERE s.id_kelas = '$id_kelas_aktif' 
+                        ORDER BY s.nama_siswa ASC
+                    ");
+
+                        if (mysqli_num_rows($query_data) == 0) {
+                            echo "<tr><td colspan='8' class='text-center' style='padding: 30px; color: #64748b;'>Belum ada data siswa.</td></tr>";
+                        }
+
+                        while ($row = mysqli_fetch_assoc($query_data)) {
+                            $status = $row['status'] ?? '';
+                        ?>
+                            <tr>
+                                <td class="text-center" style="color: #64748b;"><?php echo $no++; ?></td>
+                                <td style="color: #64748b; font-size: 13px;"><?php echo str_pad($row['id_siswa'], 8, '0', STR_PAD_LEFT); ?></td>
+                                <td style="font-weight: 600; color: #1e293b;"><?php echo $row['nama_siswa']; ?></td>
+                                <td class="text-center">
+                                    <label class="radio-container radio-hadir">
+                                        <input type="radio" name="status[<?php echo $row['id_siswa']; ?>]" value="Hadir" <?php echo $status == 'Hadir' ? 'checked' : ''; ?>>
+                                        <span class="checkmark-circle"><i class="bi bi-check-lg"></i></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label class="radio-container radio-izin">
+                                        <input type="radio" name="status[<?php echo $row['id_siswa']; ?>]" value="Izin" <?php echo $status == 'Izin' ? 'checked' : ''; ?>>
+                                        <span class="checkmark-circle"><i class="bi bi-envelope"></i></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label class="radio-container radio-sakit">
+                                        <input type="radio" name="status[<?php echo $row['id_siswa']; ?>]" value="Sakit" <?php echo $status == 'Sakit' ? 'checked' : ''; ?>>
+                                        <span class="checkmark-circle"><i class="bi bi-briefcase"></i></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label class="radio-container radio-alpha">
+                                        <input type="radio" name="status[<?php echo $row['id_siswa']; ?>]" value="Alpha" <?php echo $status == 'Alpha' ? 'checked' : ''; ?>>
+                                        <span class="checkmark-circle"><i class="bi bi-x-lg"></i></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="keterangan[<?php echo $row['id_siswa']; ?>]" class="input-note" placeholder="Catatan..." value="<?php echo htmlspecialchars($row['keterangan'] ?? ''); ?>" style="width: 100%; border: 1px solid #e2e8f0; padding: 6px 10px; border-radius: 6px; font-size: 12px;">
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <div style="padding: 15px 20px; text-align: right; border-top: 1px solid #e2e8f0;">
+                    <button type="submit" class="btn-primary" style="background: #0f5132; color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer;">
+                        <i class="bi bi-save"></i> Simpan Absensi
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 

@@ -14,6 +14,7 @@
         <ul>
             <li><a href="dashboard.php"> Beranda Dashboard</a></li>
             <li><a href="absensi.php"> Absensi Harian</a></li>
+            <li><a href="qr_scan.php"> Scan QR Absensi</a></li>
             <li><a href="perkembangan.php"> Laporan Perkembangan</a></li>
             <li><a href="../logout.php" style="color: #f87171;"> Keluar Sistem</a></li>
         </ul>

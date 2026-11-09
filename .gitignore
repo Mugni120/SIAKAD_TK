@@ -1,0 +1,9 @@
+# Konfigurasi berisi kredensial (API key / token asli) - tidak boleh ke public repo
+config/midtrans.php
+config/wa_gateway.php
+
+# Sistem operasi / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log

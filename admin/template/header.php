@@ -6,21 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIAKAD Admin - TK Al-Manaarussa'diyyah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=2">
 </head>
 
 <body>
 
     <div class="wrapper">
         <div class="sidebar">
-            <div class="brand">SIAKAD AL-MANAAR</div>
+            <div class="brand">SIAKAD TK</div>
             <ul>
-                <li><a href="dashboard.php"> Dashboard</a></li>
-                <li><a href="guru.php"> Data Guru</a></li>
-                <li><a href="siswa.php"> Data Siswa</a></li>
-                <li><a href="kelas.php"> Data Kelas</a></li>
-                <li><a href="pengumuman.php"> Pengumuman</a></li>
+                <?php $halaman = basename($_SERVER['PHP_SELF']); ?>
+                <li class="<?= $halaman == 'dashboard.php' ? 'active' : '' ?>"><a href="dashboard.php"> Dashboard</a></li>
+                <li class="<?= $halaman == 'guru.php' ? 'active' : '' ?>"><a href="guru.php"> Data Guru</a></li>
+                <li class="<?= $halaman == 'siswa.php' ? 'active' : '' ?>"><a href="siswa.php"> Data Siswa</a></li>
+                <li class="<?= $halaman == 'kelas.php' ? 'active' : '' ?>"><a href="kelas.php"> Data Kelas</a></li>
+                <li class="<?= $halaman == 'tagihan.php' ? 'active' : '' ?>"><a href="tagihan.php"> Tagihan SPP</a></li>
+                <li class="<?= $halaman == 'clustering.php' ? 'active' : '' ?>"><a href="clustering.php"> Clustering</a></li>
+                <li class="<?= $halaman == 'qr_generator.php' ? 'active' : '' ?>"><a href="qr_generator.php"> QR Generator</a></li>
+                <li class="<?= $halaman == 'wa_logs.php' ? 'active' : '' ?>"><a href="wa_logs.php"> WA Logs</a></li>
+                <li class="<?= $halaman == 'pengumuman.php' ? 'active' : '' ?>"><a href="pengumuman.php"> Pengumuman</a></li>
                 <li><a href="../logout.php" style="color: #e74c3c;"> Keluar</a></li>
             </ul>
         </div>

@@ -1,4 +1,11 @@
 <?php
+// Proteksi halaman: hanya Admin yang boleh mengakses (lihat pola admin/dashboard.php)
+session_start();
+if(!isset($_SESSION['level']) || $_SESSION['level'] != "Admin"){
+    header("location:../login.php?pesan=belum_login");
+    exit();
+}
+
 // Include template header bawaan admin kamu
 include 'template/header.php'; 
 

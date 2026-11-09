@@ -46,6 +46,28 @@ if (isset($_SESSION['level'])) {
             font-size: 24px;
         }
 
+        .login-icon {
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background-color: #f0fdfa;
+            color: #0d9488;
+        }
+
+        .login-eyebrow {
+            text-align: center;
+            color: #0d9488;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
         .login-card p {
             text-align: center;
             color: #64748b;
@@ -113,6 +135,14 @@ if (isset($_SESSION['level'])) {
 <body>
 
     <div class="login-card">
+        <div class="login-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9.5 12 4l9 5.5"/>
+                <path d="M5 10v9h14v-9"/>
+                <path d="M9 19v-5h6v5"/>
+            </svg>
+        </div>
+        <div class="login-eyebrow">Sistem Informasi Akademik</div>
         <h2>Selamat Datang</h2>
         <p>Silakan masuk untuk mengakses sistem akademik TK Al-Manaarussa'diyyah</p>
 

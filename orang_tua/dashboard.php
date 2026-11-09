@@ -22,7 +22,7 @@ $profil = mysqli_fetch_assoc($query_profil);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Orang Tua - SIAKAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <style>
         :root { --primary: #0f5132; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f4f6f9; margin: 0; }
@@ -36,20 +36,23 @@ $profil = mysqli_fetch_assoc($query_profil);
         .btn-outline { border: 2px solid #2563eb; color: #2563eb; }
         .btn-nav { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
         .btn-logout { background: #fee2e2; color: #dc3545; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
+    <nav class="navbar no-print">
         <div style="font-weight: 800; color: var(--primary);"><i class="bi bi-mortarboard-fill"></i> SIAKAD ORANG TUA</div>
         <div>
-            <a href="index.php" class="btn-nav" style="background:#f1f5f9; color:#475569;">Ganti Anak</a>
             <a href="../logout.php" class="btn-nav btn-logout">Keluar</a>
         </div>
     </nav>
 
     <div class="container">
-        <div class="profile-bar">
+        <div class="profile-bar no-print">
             <h2 style="margin:0 0 5px 0;"><?php echo $profil['nama_siswa'] ?? 'Data Siswa Belum Lengkap'; ?></h2>
             <p style="margin:0; opacity:0.9; font-size:14px;">
                 Kelas: <?php echo $profil['nama_kelas'] ?? '-'; ?> | 
@@ -58,7 +61,7 @@ $profil = mysqli_fetch_assoc($query_profil);
             </p>
         </div>
 
-        <div style="background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px;">
+        <div style="background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px;" class="no-print">
             <h3 style="margin: 0 0 15px 0; color: #1e293b; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
                 <i class="bi bi-megaphone-fill" style="color: #eab308;"></i> Pengumuman Sekolah Terbaru
             </h3>
@@ -87,7 +90,35 @@ $profil = mysqli_fetch_assoc($query_profil);
             ?>
         </div>
 
-        <div class="menu-grid">
+        <?php
+        // Kartu QR siswa untuk dicetak orang tua
+        $q_qr = mysqli_query($koneksi, "SELECT q.*, k.nama_kelas FROM siswa_qr q LEFT JOIN siswa s ON q.id_siswa = s.id_siswa LEFT JOIN kelas k ON s.id_kelas = k.id_kelas WHERE q.id_siswa = '$id_siswa'");
+        $d_qr = mysqli_fetch_assoc($q_qr);
+        if ($d_qr):
+        ?>
+        <div style="background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center;">
+            <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 18px; font-weight: 700;">
+                <i class="bi bi-qr-code" style="color: var(--primary);"></i> QR Code Kartu Pelajar
+            </h3>
+            <p style="color:#64748b; font-size:13px; margin-bottom: 20px;">Tunjukkan saat penjemputan / scan untuk absensi.</p>
+            <div id="qr-ortu" style="display:inline-block; padding: 10px; border: 1px solid #e2e8f0; border-radius: 12px;"></div>
+            <p style="margin: 12px 0 4px 0; font-weight: 700; color: var(--primary);"><?php echo htmlspecialchars($profil['nama_siswa'] ?? '-'); ?></p>
+            <p style="margin: 0 0 16px 0; color:#64748b; font-size:13px;"><?php echo htmlspecialchars($d_qr['nama_kelas'] ?? '-'); ?> &bull; <small><?php echo $d_qr['kode_qr']; ?></small></p>
+            <div class="no-print">
+                <button onclick="window.print()" class="btn btn-primary" style="border:none; cursor:pointer;"><i class="bi bi-printer"></i> Cetak QR Code</button>
+            </div>
+            <script src="../assets/js/qrcodejs.min.js"></script>
+            <script>
+                new QRCode(document.getElementById('qr-ortu'), {
+                    text: '<?php echo $d_qr['kode_qr']; ?>',
+                    width: 160,
+                    height: 160
+                });
+            </script>
+        </div>
+        <?php endif; ?>
+
+        <div class="menu-grid no-print">
             <div class="menu-box">
                 <i class="bi bi-file-earmark-pdf" style="font-size: 40px; color: var(--primary);"></i>
                 <h3>Laporan Perkembangan</h3>
@@ -100,6 +131,20 @@ $profil = mysqli_fetch_assoc($query_profil);
                 <h3>Riwayat Absensi</h3>
                 <p style="color:#64748b; font-size:13px; min-height: 40px;">Pantau data kehadiran, sakit, izin, dan tingkat ketidakhadiran anak.</p>
                 <a href="absensi.php" class="btn btn-outline"><i class="bi bi-calendar-range"></i> Buka Absensi</a>
+            </div>
+
+            <div class="menu-box">
+                <i class="bi bi-cash-stack" style="font-size: 40px; color: #059669;"></i>
+                <h3>Tagihan SPP</h3>
+                <p style="color:#64748b; font-size:13px; min-height: 40px;">Lihat dan bayar tagihan SPP bulanan anak secara online.</p>
+                <a href="tagihan.php" class="btn btn-primary"><i class="bi bi-credit-card"></i> Bayar SPP</a>
+            </div>
+
+            <div class="menu-box">
+                <i class="bi bi-clock-history" style="font-size: 40px; color: #7c3aed;"></i>
+                <h3>Riwayat Pembayaran</h3>
+                <p style="color:#64748b; font-size:13px; min-height: 40px;">Pantau riwayat pembayaran SPP yang telah dilakukan.</p>
+                <a href="riwayat_pembayaran.php" class="btn btn-outline"><i class="bi bi-receipt"></i> Lihat Riwayat</a>
             </div>
         </div>
     </div>

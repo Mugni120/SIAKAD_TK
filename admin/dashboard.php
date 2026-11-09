@@ -19,6 +19,22 @@ $data_guru   = mysqli_fetch_assoc($query_guru);
 $query_kelas = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kelas");
 $data_kelas  = mysqli_fetch_assoc($query_kelas);
 
+// Statistik fitur baru
+$query_tagihan = mysqli_query($koneksi, "SELECT COUNT(*) as total, 
+    SUM(CASE WHEN status='belum_bayar' THEN 1 ELSE 0 END) as belum_bayar,
+    SUM(CASE WHEN status='lunas' THEN 1 ELSE 0 END) as lunas
+    FROM tagihan");
+$data_tagihan = mysqli_fetch_assoc($query_tagihan);
+
+$query_transaksi = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM transaksi WHERE transaction_status='settlement'");
+$data_transaksi = mysqli_fetch_assoc($query_transaksi);
+
+$query_wa = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM wa_logs");
+$data_wa = mysqli_fetch_assoc($query_wa);
+
+$query_qr = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM siswa_qr");
+$data_qr = mysqli_fetch_assoc($query_qr);
+
 // Panggil template header
 include 'template/header.php';
 ?>
@@ -39,6 +55,29 @@ include 'template/header.php';
     <div class="card card-yellow">
         <h3>Rombongan Belajar (Kelas)</h3>
         <p><?php echo $data_kelas['total']; ?> Kelas</p>
+    </div>
+</div>
+
+<div class="card-grid" style="margin-top: 20px;">
+    <div class="card card-blue">
+        <h3>Tagihan SPP</h3>
+        <p><?php echo $data_tagihan['total']; ?> Tagihan</p>
+        <small><?php echo $data_tagihan['lunas']; ?> Lunas / <?php echo $data_tagihan['belum_bayar']; ?> Belum Bayar</small>
+    </div>
+    
+    <div class="card card-purple">
+        <h3>Transaksi Berhasil</h3>
+        <p><?php echo $data_transaksi['total']; ?> Transaksi</p>
+    </div>
+    
+    <div class="card card-orange">
+        <h3>WA Terkirim</h3>
+        <p><?php echo $data_wa['total']; ?> Pesan</p>
+    </div>
+    
+    <div class="card card-teal">
+        <h3>QR Code Aktif</h3>
+        <p><?php echo $data_qr['total']; ?> Kartu</p>
     </div>
 </div>
 

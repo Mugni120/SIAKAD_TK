@@ -21,8 +21,8 @@ body {
 
 /* Sidebar Styling */
 .sidebar {
-    width: 260px;
-    background-color: #2c3e50;
+    width: 250px;
+    background-color: #0f172a;
     color: #fff;
     position: fixed;
     height: 100%;
@@ -31,37 +31,46 @@ body {
 
 .sidebar .brand {
     padding: 20px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     text-align: center;
-    background-color: #1a252f;
-    border-bottom: 1px solid #34495e;
+    background-color: #0b1120;
+    border-bottom: 1px solid #1e293b;
+    letter-spacing: 1px;
 }
 
 .sidebar ul {
     list-style: none;
-    padding: 20px 0;
+    padding: 16px 12px;
 }
 
 .sidebar ul li a {
     display: block;
-    padding: 12px 25px;
-    color: #bdc3c7;
+    padding: 10px 16px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     transition: 0.2s;
+    white-space: nowrap;
+}
+
+.sidebar ul li a i {
+    margin-right: 8px;
 }
 
 .sidebar ul li a:hover, .sidebar ul li.active a {
-    color: #fff;
-    background-color: #34495e;
-    border-left: 4px solid #2ecc71;
+    color: #ffffff;
+    background-color: rgba(13, 148, 136, 0.28);
+    border-left: none;
+    padding-left: 16px;
 }
 
 /* Main Content Area */
 .main-content {
-    margin-left: 260px;
-    width: calc(100% - 260px);
+    margin-left: 250px;
+    width: calc(100% - 250px);
     display: flex;
     flex-direction: column;
 }
@@ -78,8 +87,8 @@ body {
 }
 
 .topbar .user-info {
-    font-weight: 60px;
-    color: #555;
+    font-weight: 600;
+    color: #475569;
 }
 
 /* Container Konten */
@@ -91,7 +100,8 @@ body {
 .page-title {
     margin-bottom: 25px;
     font-size: 24px;
-    color: #2c3e50;
+    color: #0f172a;
+    font-weight: 700;
 }
 
 /* Kartu Statistik (Cards Dashboard) */
@@ -105,25 +115,26 @@ body {
 .card {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    border-left: 5px solid #3498db;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    border-left: 5px solid #0d9488;
 }
 
-.card.card-green { border-left-color: #2ecc71; }
-.card.card-yellow { border-left-color: #f1c40f; }
+.card.card-green { border-left-color: #10b981; }
+.card.card-yellow { border-left-color: #f59e0b; }
 
 .card h3 {
-    font-size: 14px;
-    color: #7f8c8d;
+    font-size: 13px;
+    color: #64748b;
     text-transform: uppercase;
     margin-bottom: 5px;
+    letter-spacing: 0.5px;
 }
 
 .card p {
     font-size: 28px;
     font-weight: bold;
-    color: #2c3e50;
+    color: #0f172a;
 }
 
 /* Footer Styling */
@@ -142,7 +153,7 @@ footer {
 .btn {
     display: inline-block;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -150,8 +161,8 @@ footer {
     border: none;
     transition: 0.2s;
 }
-.btn-primary { background-color: #1a5336; color: white; } /* Hijau Tua Khas SIAKAD */
-.btn-primary:hover { background-color: #123c26; }
+.btn-primary { background-color: #0d9488; color: white; }
+.btn-primary:hover { background-color: #0f766e; }
 .btn-danger { background-color: #e74c3c; color: white; }
 .btn-danger:hover { background-color: #c0392b; }
 .btn-warning { background-color: #f39c12; color: white; }
@@ -179,7 +190,7 @@ table.data-table {
 }
 table.data-table th {
     background-color: #f8fafc;
-    color: #64748b;
+    color: #0f766e;
     padding: 14px;
     font-size: 13px;
     text-transform: uppercase;
@@ -245,7 +256,7 @@ table.data-table tr:hover { background-color: #f8fafc; }
     outline: none;
 }
 .form-group-crud input:focus, .form-group-crud select:focus {
-    border-color: #1a5336;
+    border-color: #0d9488;
 }
 
 /* Aturan Transisi Responsif Sidebar */

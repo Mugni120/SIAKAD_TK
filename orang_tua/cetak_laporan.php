@@ -22,7 +22,7 @@ $nilai = mysqli_fetch_assoc($query_nilai);
     <meta charset="UTF-8">
     <title>Cetak Rapor Resmi - SIAKAD</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9fa; margin: 0; padding: 24px; color: #000; }
         .container { max-width: 850px; margin: 0 auto; }
