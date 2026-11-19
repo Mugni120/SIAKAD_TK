@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Serve Laravel's front controller for every project request.
+    # The request URI stays intact, so the legacy application keeps its URLs.
+    RewriteCond %{REQUEST_URI} !/public/
+    RewriteRule ^ public/index.php [L]
+</IfModule>
