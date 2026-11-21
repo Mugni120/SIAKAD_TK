@@ -46,7 +46,15 @@ if(isset($_POST['kode_qr'])) {
         $pesan = "QR Code tidak valid!";
         $status = 'danger';
     }
+
+    header('Location: qr_scan.php?pesan=' . urlencode($pesan) . '&status=' . urlencode($status));
+    exit();
 }
+?>
+
+<?php
+$pesan = isset($_GET['pesan']) ? $_GET['pesan'] : null;
+$status = isset($_GET['status']) ? $_GET['status'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +101,7 @@ if(isset($_POST['kode_qr'])) {
                     <div class="card-body">
                         <div id="reader"></div>
                         
-                        <?php if(isset($pesan)): ?>
+                        <?php if($pesan !== null): ?>
                         <div class="result-box alert alert-<?= $status ?> alert-dismissible fade show">
                             <h5><?= $pesan ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
