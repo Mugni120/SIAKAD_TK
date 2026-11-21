@@ -1,5 +1,6 @@
 <?php
 // Konfigurasi Database
+global $koneksi;
 $host = "localhost";
 $user = "root";      
 $pass = "";           
