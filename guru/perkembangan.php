@@ -165,7 +165,7 @@ $id_siswa = isset($_GET['id_siswa']) ? mysqli_real_escape_string($koneksi, $_GET
     // VIEW 1: JIKA BELUM MEMILIH SISWA
     // ==========================================
     if(empty($id_siswa)) { 
-        $query_daftar = mysqli_query($koneksi, "SELECT * FROM siswa WHERE id_kelas='$id_kelas' ORDER BY nama_siswa ASC");
+        $query_daftar = mysqli_query($koneksi, "SELECT s.*, l.id_laporan FROM siswa s LEFT JOIN laporan_siswa l ON s.id_siswa = l.id_siswa AND l.semester = '$semester_aktif' WHERE s.id_kelas = '$id_kelas' ORDER BY s.nama_siswa ASC");
     ?>
         <div class="page-header">
             <div class="header-text">
@@ -177,12 +177,19 @@ $id_siswa = isset($_GET['id_siswa']) ? mysqli_real_escape_string($koneksi, $_GET
             </a>
         </div>
 
+        <?php if (isset($_GET['pesan']) && $_GET['pesan'] === 'sukses'): ?>
+            <div style="margin-bottom: 18px; padding: 12px 16px; border-radius: 12px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #047857; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <i class="bi bi-check-circle-fill"></i> Laporan perkembangan siswa berhasil disimpan.
+            </div>
+        <?php endif; ?>
+
         <div class="student-list-card">
             <table class="student-table">
                 <thead>
                     <tr>
                         <th width="8%" class="text-center">No</th>
                         <th>Nama Lengkap Anak Didik</th>
+                        <th width="20%" class="text-center">Status Laporan</th>
                         <th width="25%" class="text-center">Tindakan</th>
                     </tr>
                 </thead>
@@ -196,9 +203,20 @@ $id_siswa = isset($_GET['id_siswa']) ? mysqli_real_escape_string($koneksi, $_GET
                             <td class="text-center" style="color: var(--text-muted); font-weight: 500;"><?php echo $no++; ?></td>
                             <td><strong><?php echo $row['nama_siswa']; ?></strong></td>
                             <td class="text-center">
+                                <?php if (!empty($row['id_laporan'])): ?>
+                                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 999px; background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700;">
+                                        <i class="bi bi-check-circle-fill"></i> Sudah dinilai
+                                    </span>
+                                <?php else: ?>
+                                    <span style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 999px; background: #f1f5f9; color: #64748b; font-size: 12px; font-weight: 700;">
+                                        <i class="bi bi-hourglass-split"></i> Belum dinilai
+                                    </span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-center">
                                 <!-- Mengarah ke file yang sama tapi membawa parameter id_siswa -->
                                 <a href="perkembangan.php?id_siswa=<?php echo $row['id_siswa']; ?>&semester=<?php echo $semester_aktif; ?>" class="btn-evaluate">
-                                    <i class="bi bi-pencil-square"></i> Mulai Nilai
+                                    <i class="bi bi-pencil-square"></i> <?php echo !empty($row['id_laporan']) ? 'Edit Nilai' : 'Mulai Nilai'; ?>
                                 </a>
                             </td>
                         </tr>
@@ -246,6 +264,11 @@ $id_siswa = isset($_GET['id_siswa']) ? mysqli_real_escape_string($koneksi, $_GET
                     <div class="student-details">
                         <h2><?php echo $siswa['nama_siswa']; ?> <span class="badge-class"><?php echo $siswa['nama_kelas']; ?></span></h2>
                         <p>Periode Penilaian: <b>Semester <?php echo $semester_aktif; ?> (<?php echo $siswa['tahun_ajaran']; ?>)</b>.</p>
+                        <?php if (!empty($nilai)): ?>
+                            <p style="margin-top: 6px; color: #047857; font-size: 13px; font-weight: 600;">
+                                <i class="bi bi-check-circle-fill"></i> Laporan sebelumnya sudah tersimpan dan dapat diperbarui.
+                            </p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
