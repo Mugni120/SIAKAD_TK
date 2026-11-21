@@ -105,19 +105,6 @@ Pastikan database `data_tk` sudah di-import sebelum digunakan.
 
 ## Akun
 
-Akun admin default dapat dibuat dengan membuka:
-
-```text
-http://localhost/siakad_tk/buat_admin.php
-```
-
-Akun yang dibuat:
-
-- Username: `mugniAja`
-- Password: `mugni123`
-
-> Jangan biarkan `buat_admin.php` terbuka pada deployment bersama.
-
 Akun contoh lain tersedia pada `database/seed_data.sql`, dengan password yang disesuaikan pada data seed.
 
 ## Catatan Penting
