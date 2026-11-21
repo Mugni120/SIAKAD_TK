@@ -182,6 +182,10 @@ include 'config/koneksi.php';
                         ?>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp Orang Tua</label>
+                    <input type="text" name="no_hp_ortu" placeholder="Contoh: 081234567890" required>
+                </div>
             </div>
 
             <button type="submit" class="btn-register">Registrasi</button>

@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         $id_siswa = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
+        $no_hp_ortu = mysqli_real_escape_string($koneksi, $_POST['no_hp_ortu'] ?? '');
 
         // Cegah satu anak memiliki lebih dari satu akun orang tua
         $cek_anak = mysqli_query($koneksi, "SELECT id_user FROM users WHERE id_siswa = '$id_siswa' AND level = 'Orang Tua'");
@@ -40,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("location:register.php?pesan=anak_sudah_ada");
             exit();
         }
+
+        // Simpan nama dan nomor WhatsApp orang tua ke data siswa
+        mysqli_query($koneksi, "UPDATE siswa SET nama_ortu = '$nama', no_hp_ortu = '$no_hp_ortu' WHERE id_siswa = '$id_siswa'");
 
         // Hubungkan user baru dengan id_siswa yang dipilih
         $sql = "INSERT INTO users (username, password, level, id_guru, id_siswa) VALUES ('$username', '$password', 'Orang Tua', NULL, '$id_siswa')";
