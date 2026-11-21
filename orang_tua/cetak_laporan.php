@@ -15,6 +15,20 @@ $profil = mysqli_fetch_assoc($query_profil);
 
 $query_nilai = mysqli_query($koneksi, "SELECT * FROM laporan_siswa WHERE id_siswa = '$id_siswa' AND semester = '$semester_aktif'");
 $nilai = mysqli_fetch_assoc($query_nilai);
+
+// Ambil data wali kelas yang menilai
+$guru = null;
+if ($nilai && !empty($nilai['id_guru'])) {
+    $qg = mysqli_query($koneksi, "SELECT nama_guru, nip FROM guru WHERE id_guru = '" . mysqli_real_escape_string($koneksi, $nilai['id_guru']) . "'");
+    $guru = mysqli_fetch_assoc($qg);
+}
+if (!$guru && !empty($profil['id_kelas'])) {
+    $qg = mysqli_query($koneksi, "SELECT nama_guru, nip FROM guru WHERE id_kelas = '" . mysqli_real_escape_string($koneksi, $profil['id_kelas']) . "' LIMIT 1");
+    $guru = mysqli_fetch_assoc($qg);
+}
+
+$bulan_id = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+$tanggal_cetak = date('j') . ' ' . $bulan_id[(int)date('n') - 1] . ' ' . date('Y');
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -117,16 +131,21 @@ $nilai = mysqli_fetch_assoc($query_nilai);
 
             <div class="ttd-grid">
                 <div>
-                    <div>Mengetahui,</div><div>Orang Tua / Wali Murid</div>
-                    <div style="margin-top: 55px;">( ________________________ )</div>
+                    <div>Mengetahui,</div>
+                    <div>Orang Tua / Wali Murid</div>
+                    <div style="margin-top: 60px;">( ________________________ )</div>
                 </div>
                 <div>
-                    <div>Bandung, ................................... 2026</div><div>Wali Kelas</div>
-                    <div style="margin-top: 55px;">( ________________________ )</div>
+                    <div>Bandung, <?php echo $tanggal_cetak; ?></div>
+                    <div>Wali Kelas</div>
+                    <div style="margin-top: 45px; font-weight: 700;"><?php echo htmlspecialchars($guru['nama_guru'] ?? '____________________'); ?></div>
+                    <div style="font-size: 12px; color: #475569;">NIP: <?php echo htmlspecialchars($guru['nip'] ?? '-'); ?></div>
                 </div>
                 <div style="grid-column: 1/-1;">
-                    <div>Mengetahui,</div><div>Kepala Sekolah TK Al-Manaarussa'diyyah</div>
-                    <div style="margin-top: 55px;"><b>( ________________________ )</b></div>
+                    <div>Mengetahui,</div>
+                    <div>Kepala Sekolah TK Al-Manaarussa'diyyah</div>
+                    <div style="margin-top: 60px; font-weight: 700;">( ________________________ )</div>
+                    <div style="font-size: 12px; color: #475569; margin-top: 4px;">Tanggal: <?php echo $tanggal_cetak; ?></div>
                 </div>
             </div>
         <?php } else { ?>
