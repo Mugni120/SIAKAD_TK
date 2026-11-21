@@ -32,7 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } else {
-        $id_siswa = $_POST['id_siswa'];
+        $id_siswa = mysqli_real_escape_string($koneksi, $_POST['id_siswa']);
+
+        // Cegah satu anak memiliki lebih dari satu akun orang tua
+        $cek_anak = mysqli_query($koneksi, "SELECT id_user FROM users WHERE id_siswa = '$id_siswa' AND level = 'Orang Tua'");
+        if (mysqli_num_rows($cek_anak) > 0) {
+            header("location:register.php?pesan=anak_sudah_ada");
+            exit();
+        }
+
         // Hubungkan user baru dengan id_siswa yang dipilih
         $sql = "INSERT INTO users (username, password, level, id_guru, id_siswa) VALUES ('$username', '$password', 'Orang Tua', NULL, '$id_siswa')";
     }

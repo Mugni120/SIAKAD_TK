@@ -118,6 +118,8 @@ include 'config/koneksi.php';
         if (isset($_GET['pesan'])) {
             if ($_GET['pesan'] == "username_kembar") {
                 echo "<div class='alert'>Username sudah terdaftar! Gunakan nama lain.</div>";
+            } else if ($_GET['pesan'] == "anak_sudah_ada") {
+                echo "<div class='alert'>Anak yang dipilih sudah memiliki akun orang tua. Pilih anak lain.</div>";
             } else if ($_GET['pesan'] == "gagal") {
                 echo "<div class='alert'>Terjadi kesalahan sistem pendaftaran.</div>";
             }
@@ -169,9 +171,13 @@ include 'config/koneksi.php';
                     <select name="id_siswa" id="id_siswa" class="form-control" style="width:100%; padding:10px;">
                         <option value="">-- Pilih Anak --</option>
                         <?php
-                        $query_siswa = mysqli_query($koneksi, "SELECT id_siswa, nama_siswa FROM siswa");
+                        $query_siswa = mysqli_query($koneksi, "SELECT s.id_siswa, s.nama_siswa FROM siswa s WHERE NOT EXISTS (SELECT 1 FROM users u WHERE u.id_siswa = s.id_siswa AND u.level = 'Orang Tua')");
                         while ($s = mysqli_fetch_array($query_siswa)) {
                             echo "<option value='" . $s['id_siswa'] . "'>" . $s['nama_siswa'] . "</option>";
+                        }
+                        $sisa_anak = mysqli_num_rows($query_siswa);
+                        if ($sisa_anak == 0) {
+                            echo "<option value='' disabled>Semua anak sudah memiliki akun orang tua</option>";
                         }
                         ?>
                     </select>
