@@ -41,7 +41,7 @@ $profil = mysqli_fetch_assoc($query_profil);
             body { background: white; }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=9">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=10">
 </head>
 <body>
 

@@ -1675,7 +1675,7 @@
 .table-container thead th,
 .student-list-card thead th,
 .table-card thead th {
-    background: linear-gradient(135deg, var(--card-accent), var(--card-accent-2));
+    background: #0f5132;
     color: #ffffff;
     font-size: 12px;
     font-weight: 700;

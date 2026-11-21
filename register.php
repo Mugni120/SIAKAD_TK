@@ -105,7 +105,7 @@ include 'config/koneksi.php';
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="assets/css/cards.css?v=9">
+    <link rel="stylesheet" href="assets/css/cards.css?v=10">
 </head>
 
 <body>

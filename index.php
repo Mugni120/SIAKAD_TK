@@ -115,7 +115,7 @@ if (isset($_SESSION['level'])) {
             box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.4);
         }
     </style>
-    <link rel="stylesheet" href="assets/css/cards.css?v=9">
+    <link rel="stylesheet" href="assets/css/cards.css?v=10">
 </head>
 <body>
 

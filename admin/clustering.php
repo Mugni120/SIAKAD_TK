@@ -131,12 +131,27 @@ for($c = 0; $c < $k; $c++) {
 arsort($cluster_avg);
 $rank = 0;
 $cluster_names = [];
+$cluster_colors = [];
+$cluster_icons = [];
 foreach($cluster_avg as $c => $avg) {
     $rank++;
-    if($rank == 1) $cluster_names[$c] = "Cluster A - Unggul";
-    elseif($rank == 2) $cluster_names[$c] = "Cluster B - Berkembang";
-    else $cluster_names[$c] = "Cluster C - Perlu Perhatian";
+    if($rank == 1) {
+        $cluster_names[$c] = "Cluster A - Unggul";
+        $cluster_colors[$c] = "success";
+        $cluster_icons[$c] = "star";
+    } elseif($rank == 2) {
+        $cluster_names[$c] = "Cluster B - Berkembang";
+        $cluster_colors[$c] = "warning";
+        $cluster_icons[$c] = "arrow-up-circle";
+    } else {
+        $cluster_names[$c] = "Cluster C - Perlu Perhatian";
+        $cluster_colors[$c] = "danger";
+        $cluster_icons[$c] = "exclamation-triangle";
+    }
 }
+
+// Urutan tampil: Unggul, Berkembang, Perlu Perhatian
+$cluster_order = array_keys($cluster_avg);
 
 // Simpan hasil ke database
 if(!empty($data)) {
@@ -181,7 +196,7 @@ if(!empty($data)) {
         .sidebar .nav-link { color: rgba(255,255,255,.85) !important; white-space: nowrap; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #ffffff !important; background-color: rgba(13,148,136,.25) !important; border-radius: 6px; }
     </style>
-    <link href="../assets/css/cards.css?v=9" rel="stylesheet">
+    <link href="../assets/css/cards.css?v=10" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
@@ -233,25 +248,22 @@ if(!empty($data)) {
                     
                     <!-- Statistik Cluster -->
                     <div class="row mb-4">
-                        <?php for($c = 0; $c < $k; $c++): 
-                            $colors = ['success', 'warning', 'danger'];
-                            $icons = ['star', 'arrow-up-circle', 'exclamation-triangle'];
-                        ?>
+                        <?php foreach($cluster_order as $c): ?>
                         <div class="col-md-4">
-                            <div class="stat-box bg-<?= $colors[$c] ?>">
-                                <h5><i class="bi bi-<?= $icons[$c] ?>"></i> <?= $cluster_names[$c] ?></h5>
+                            <div class="stat-box bg-<?= $cluster_colors[$c] ?>">
+                                <h5><i class="bi bi-<?= $cluster_icons[$c] ?>"></i> <?= $cluster_names[$c] ?></h5>
                                 <h3><?= $cluster_counts[$c] ?> Siswa</h3>
                                 <small>Rata-rata: <?= number_format($cluster_avg[$c], 2) ?></small>
                             </div>
                         </div>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     </div>
 
                     <!-- Detail per Cluster -->
-                    <?php for($c = 0; $c < $k; $c++): ?>
+                    <?php foreach($cluster_order as $c): ?>
                     <div class="card cluster-card cluster-<?= strtolower(substr($cluster_names[$c], 8, 1)) ?> mb-4">
                         <div class="card-header">
-                            <h5><i class="bi bi-<?= $icons[$c] ?>"></i> <?= $cluster_names[$c] ?> (<?= $cluster_counts[$c] ?> siswa)</h5>
+                            <h5><i class="bi bi-<?= $cluster_icons[$c] ?>"></i> <?= $cluster_names[$c] ?> (<?= $cluster_counts[$c] ?> siswa)</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -293,7 +305,7 @@ if(!empty($data)) {
                             </div>
                         </div>
                     </div>
-                    <?php endfor; ?>
+                    <?php endforeach; ?>
 
                     <!-- Visualisasi Centroid -->
                     <div class="card">
@@ -315,8 +327,8 @@ if(!empty($data)) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php for($c = 0; $c < $k; $c++): ?>
-                                        <tr class="table-<?= $colors[$c] ?>">
+                                    <?php foreach($cluster_order as $c): ?>
+                                        <tr class="table-<?= $cluster_colors[$c] ?>">
                                             <td><strong><?= $cluster_names[$c] ?></strong></td>
                                             <td><?= number_format($result['centroids'][$c]['kognitif'], 2) ?></td>
                                             <td><?= number_format($result['centroids'][$c]['motorik'], 2) ?></td>
@@ -325,7 +337,7 @@ if(!empty($data)) {
                                             <td><?= number_format($result['centroids'][$c]['seni'], 2) ?></td>
                                             <td><?= number_format($result['centroids'][$c]['agama'], 2) ?></td>
                                         </tr>
-                                    <?php endfor; ?>
+                                    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
