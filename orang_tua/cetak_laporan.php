@@ -144,7 +144,8 @@ $tanggal_cetak = date('j') . ' ' . $bulan_id[(int)date('n') - 1] . ' ' . date('Y
                 <div style="grid-column: 1/-1;">
                     <div>Mengetahui,</div>
                     <div>Kepala Sekolah TK Al-Manaarussa'diyyah</div>
-                    <div style="margin-top: 60px; font-weight: 700;">( ________________________ )</div>
+                    <div style="margin-top: 45px; font-weight: 700;">Eva Hanifah</div>
+                    <div style="font-size: 12px; color: #475569;">NIP: -</div>
                     <div style="font-size: 12px; color: #475569; margin-top: 4px;">Tanggal: <?php echo $tanggal_cetak; ?></div>
                 </div>
             </div>

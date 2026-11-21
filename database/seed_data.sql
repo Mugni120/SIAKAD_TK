@@ -8,8 +8,8 @@ INSERT INTO `kelas` (`nama_kelas`, `tahun_ajaran`) VALUES
 
 -- Guru
 INSERT INTO `guru` (`nama_guru`, `id_kelas`, `nip`, `jabatan`, `no_telepon`, `email`) VALUES
-('Ibu Siti Rahma', 1, '198501012010012001', 'Guru Kelas', '081234567890', 'siti@tkalmanar.sch.id'),
-('Ibu Dewi Lestari', 2, '198602022011012002', 'Guru Kelas', '081234567891', 'dewi@tkalmanar.sch.id');
+('Bu Siti', 1, '198501012010012001', 'Guru Kelas', '081234567890', 'siti@tkalmanar.sch.id'),
+('Bu Imas', 2, '198602022011012002', 'Guru Kelas', '081234567891', 'dewi@tkalmanar.sch.id');
 
 -- Siswa
 INSERT INTO `siswa` (`nama_siswa`, `jenis_kelamin`, `tgl_lahir`, `nama_ortu`, `no_hp_ortu`, `id_kelas`) VALUES
