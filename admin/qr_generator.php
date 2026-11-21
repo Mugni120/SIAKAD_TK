@@ -35,14 +35,6 @@ $q = mysqli_query($koneksi, "SELECT q.*, s.nama_siswa, k.nama_kelas
     <link href="../assets/css/style.css?v=4" rel="stylesheet">
     <script src="../assets/js/qrcodejs.min.js"></script>
     <style>
-        .qr-card { 
-            border: 2px solid #dee2e6; 
-            border-radius: 15px; 
-            padding: 20px; 
-            text-align: center;
-            transition: transform 0.2s;
-        }
-        .qr-card:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .qr-card img { max-width: 150px; height: auto; }
         @media print {
             .no-print { display: none !important; }
@@ -95,15 +87,10 @@ $q = mysqli_query($koneksi, "SELECT q.*, s.nama_siswa, k.nama_kelas
                     </button>
                 </div>
 
-                <div class="alert alert-info no-print">
-                    <i class="bi bi-info-circle"></i> QR Code ini digunakan untuk absensi. 
-                    Cetak dan bagikan ke orang tua. Guru dapat scan QR ini untuk mencatat kehadiran.
-                </div>
-
                 <div class="row">
                     <?php while($d = mysqli_fetch_assoc($q)): ?>
                     <div class="col-md-4 col-lg-3 mb-4">
-                        <div class="qr-card">
+                        <div class="qr-card h-100 d-flex flex-column align-items-center justify-content-center">
                             <h5 class="text-primary"><?= htmlspecialchars($d['nama_siswa']) ?></h5>
                             <p class="text-muted mb-2"><?= htmlspecialchars($d['nama_kelas']) ?></p>
                             <div id="qr-<?= $d['id_qr'] ?>"></div>
