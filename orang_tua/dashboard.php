@@ -41,6 +41,7 @@ $profil = mysqli_fetch_assoc($query_profil);
             body { background: white; }
         }
     </style>
+    <link rel="stylesheet" href="../assets/css/cards.css?v=8">
 </head>
 <body>
 
@@ -61,31 +62,33 @@ $profil = mysqli_fetch_assoc($query_profil);
             </p>
         </div>
 
-        <div style="background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px;" class="no-print">
-            <h3 style="margin: 0 0 15px 0; color: #1e293b; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                <i class="bi bi-megaphone-fill" style="color: #eab308;"></i> Pengumuman Sekolah Terbaru
-            </h3>
+        <div class="card info-card announcement-card no-print">
+            <div class="info-card-heading">
+                <span class="info-icon"><i class="bi bi-megaphone-fill"></i></span>
+                <div>
+                    <h3>Pengumuman Sekolah Terbaru</h3>
+                    <p>Informasi terbaru dari sekolah untuk orang tua / wali murid.</p>
+                </div>
+            </div>
             <?php
             // Mengambil 3 pengumuman terbaru
             $query_pengumuman_ortua = mysqli_query($koneksi, "SELECT * FROM pengumuman ORDER BY id_pengumuman DESC LIMIT 3");
             if (mysqli_num_rows($query_pengumuman_ortua) > 0) {
                 while ($p_ortua = mysqli_fetch_assoc($query_pengumuman_ortua)) {
             ?>
-                    <div style="border-bottom: 1px solid #f1f5f9; padding: 15px 0; margin-bottom: 5px;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px;">
-                            <h4 style="margin: 0; color: var(--primary); font-size: 15px; font-weight: 700;"><?php echo htmlspecialchars($p_ortua['judul']); ?></h4>
-                            <small style="color: #64748b; font-size: 12px; white-space: nowrap; background: #f8fafc; padding: 2px 8px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <div class="announcement-item">
+                        <div class="announcement-head">
+                            <h4><?php echo htmlspecialchars($p_ortua['judul']); ?></h4>
+                            <span class="announcement-date">
                                 <i class="bi bi-calendar3"></i> <?php echo date('d M Y', strtotime($p_ortua['tanggal_buat'])); ?>
-                            </small>
+                            </span>
                         </div>
-                        <p style="margin: 0; color: #475569; font-size: 13px; line-height: 1.6;">
-                            <?php echo nl2br(htmlspecialchars($p_ortua['isi_pengumuman'])); ?>
-                        </p>
+                        <p><?php echo nl2br(htmlspecialchars($p_ortua['isi_pengumuman'])); ?></p>
                     </div>
             <?php
                 }
             } else {
-                echo "<p style='color: #94a3b8; font-size: 13px; text-align: center; margin: 15px 0;'>Belum ada informasi terbaru dari sekolah untuk orang tua.</p>";
+                echo "<p class='announcement-empty'>Belum ada informasi terbaru dari sekolah untuk orang tua.</p>";
             }
             ?>
         </div>
@@ -96,14 +99,14 @@ $profil = mysqli_fetch_assoc($query_profil);
         $d_qr = mysqli_fetch_assoc($q_qr);
         if ($d_qr):
         ?>
-        <div style="background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center;">
-            <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 18px; font-weight: 700;">
-                <i class="bi bi-qr-code" style="color: var(--primary);"></i> QR Code Kartu Pelajar
+        <div class="card qr-card no-print">
+            <h3>
+                <i class="bi bi-qr-code"></i> QR Code Kartu Pelajar
             </h3>
-            <p style="color:#64748b; font-size:13px; margin-bottom: 20px;">Tunjukkan saat penjemputan / scan untuk absensi.</p>
-            <div id="qr-ortu" style="display:inline-block; padding: 10px; border: 1px solid #e2e8f0; border-radius: 12px;"></div>
-            <p style="margin: 12px 0 4px 0; font-weight: 700; color: var(--primary);"><?php echo htmlspecialchars($profil['nama_siswa'] ?? '-'); ?></p>
-            <p style="margin: 0 0 16px 0; color:#64748b; font-size:13px;"><?php echo htmlspecialchars($d_qr['nama_kelas'] ?? '-'); ?> &bull; <small><?php echo $d_qr['kode_qr']; ?></small></p>
+            <p class="qr-card-desc">Tunjukkan saat penjemputan / scan untuk absensi.</p>
+            <div id="qr-ortu" class="qr-code-box"></div>
+            <p class="qr-student-name"><?php echo htmlspecialchars($profil['nama_siswa'] ?? '-'); ?></p>
+            <p class="qr-student-class"><?php echo htmlspecialchars($d_qr['nama_kelas'] ?? '-'); ?> &bull; <small><?php echo $d_qr['kode_qr']; ?></small></p>
             <div class="no-print">
                 <button onclick="window.print()" class="btn btn-primary" style="border:none; cursor:pointer;"><i class="bi bi-printer"></i> Cetak QR Code</button>
             </div>
@@ -120,28 +123,28 @@ $profil = mysqli_fetch_assoc($query_profil);
 
         <div class="menu-grid no-print">
             <div class="menu-box">
-                <i class="bi bi-file-earmark-pdf" style="font-size: 40px; color: var(--primary);"></i>
+                <div class="menu-visual"><i class="bi bi-file-earmark-pdf"></i></div>
                 <h3>Laporan Perkembangan</h3>
                 <p style="color:#64748b; font-size:13px; min-height: 40px;">Lihat rekap capaian nilai 6 aspek perkembangan anak didik.</p>
                 <a href="cetak_laporan.php" class="btn btn-primary"><i class="bi bi-eye-fill"></i> Buka Laporan</a>
             </div>
 
             <div class="menu-box">
-                <i class="bi bi-calendar2-check" style="font-size: 40px; color: #2563eb;"></i>
+                <div class="menu-visual" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); color: #2563eb;"><i class="bi bi-calendar2-check"></i></div>
                 <h3>Riwayat Absensi</h3>
                 <p style="color:#64748b; font-size:13px; min-height: 40px;">Pantau data kehadiran, sakit, izin, dan tingkat ketidakhadiran anak.</p>
                 <a href="absensi.php" class="btn btn-outline"><i class="bi bi-calendar-range"></i> Buka Absensi</a>
             </div>
 
             <div class="menu-box">
-                <i class="bi bi-cash-stack" style="font-size: 40px; color: #059669;"></i>
+                <div class="menu-visual" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); color: #059669;"><i class="bi bi-cash-stack"></i></div>
                 <h3>Tagihan SPP</h3>
                 <p style="color:#64748b; font-size:13px; min-height: 40px;">Lihat dan bayar tagihan SPP bulanan anak secara online.</p>
                 <a href="tagihan.php" class="btn btn-primary"><i class="bi bi-credit-card"></i> Bayar SPP</a>
             </div>
 
             <div class="menu-box">
-                <i class="bi bi-clock-history" style="font-size: 40px; color: #7c3aed;"></i>
+                <div class="menu-visual" style="background: linear-gradient(135deg, #f5f3ff, #ede9fe); color: #7c3aed;"><i class="bi bi-clock-history"></i></div>
                 <h3>Riwayat Pembayaran</h3>
                 <p style="color:#64748b; font-size:13px; min-height: 40px;">Pantau riwayat pembayaran SPP yang telah dilakukan.</p>
                 <a href="riwayat_pembayaran.php" class="btn btn-outline"><i class="bi bi-receipt"></i> Lihat Riwayat</a>

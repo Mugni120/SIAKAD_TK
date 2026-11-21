@@ -29,10 +29,6 @@ include 'template/header.php';
 
 <style>
     .table-container {
-        background: white; 
-        padding: 25px; 
-        border-radius: 8px; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         margin-top: 20px;
     }
     .custom-table {
@@ -78,55 +74,86 @@ include 'template/header.php';
 <h2 class="page-title">Selamat Datang, Guru Pengampu</h2>
 
 <div class="card-grid">
-    <div class="card" style="border-left-color: #8b5cf6;">
-        <h3>Kelas Yang Diampu</h3>
-        <p><?php echo $nama_kelas; ?></p>
+    <div class="card card-purple has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-easel2-fill"></i></span>
+            <span class="card-visual-label">Ruang Belajar</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Kelas Yang Diampu</span>
+            <p class="card-value is-text"><?php echo $nama_kelas; ?></p>
+            <p class="card-desc">Kelas yang Anda dampingi pada tahun ajaran ini.</p>
+            <a href="absensi.php" class="card-action">Buka absensi <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-green">
-        <h3>Jumlah Anak Didik</h3>
-        <p><?php echo $data_siswa['total']; ?> Siswa</p>
+
+    <div class="card card-green has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-people-fill"></i></span>
+            <span class="card-visual-label">Anak Didik</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Jumlah Anak Didik</span>
+            <p class="card-value"><?php echo $data_siswa['total']; ?> <small>Siswa</small></p>
+            <p class="card-desc">Anak didik aktif yang ada di kelas Anda.</p>
+            <a href="perkembangan.php" class="card-action">Lihat perkembangan <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-yellow">
-        <h3>Tanggal Hari Ini</h3>
-        <p style="font-size: 20px; margin-top: 5px;"><?php echo date('d F Y'); ?></p>
+
+    <div class="card card-yellow has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-calendar-heart-fill"></i></span>
+            <span class="card-visual-label">Hari Ini</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Tanggal Hari Ini</span>
+            <p class="card-value is-text"><?php echo date('d F Y'); ?></p>
+            <p class="card-desc">Semangat mendampingi anak didik hari ini.</p>
+            <a href="absensi.php" class="card-action">Isi absensi <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
 </div>
 
-<div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 20px;">
-    <h3>Menu Cepat Pengelolaan Akademik</h3>
-    <p style="margin-top: 10px; color: #666; line-height: 1.6;">
-        Silakan lakukan pengisian <b>Absensi Harian</b> setiap hari sebelum kelas dimulai atau selesai. 
-        Nilai capaian perkembangan siswa (6 aspek penilaian) dapat diangsur atau diisi menjelang akhir pengerjaan raport semester pada daftar tabel anak didik di bawah ini.
-    </p>
+<div class="card info-card">
+    <div class="info-card-heading">
+        <span class="info-icon"><i class="bi bi-lightbulb-fill"></i></span>
+        <div>
+            <h3>Menu Cepat Pengelolaan Akademik</h3>
+            <p>
+                Silakan lakukan pengisian <b>Absensi Harian</b> setiap hari sebelum kelas dimulai atau selesai.
+                Nilai capaian perkembangan siswa (6 aspek penilaian) dapat diangsur atau diisi menjelang akhir pengerjaan raport semester pada daftar tabel anak didik di bawah ini.
+            </p>
+        </div>
+    </div>
 </div>
 
-<div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 20px;">
-    <h3 style="margin-bottom: 15px; color: #1e293b; display: flex; align-items: center; gap: 8px;">
-        <i class="bi bi-megaphone-fill" style="color: #f59e0b;"></i> Pengumuman Sekolah Terbaru
-    </h3>
+<div class="card info-card announcement-card">
+    <div class="info-card-heading">
+        <span class="info-icon"><i class="bi bi-megaphone-fill"></i></span>
+        <div>
+            <h3>Pengumuman Sekolah Terbaru</h3>
+            <p>Informasi terbaru dari admin sekolah untuk para pendidik.</p>
+        </div>
+    </div>
     <?php
     // Mengambil 3 pengumuman terbaru
     $query_pengumuman_guru = mysqli_query($koneksi, "SELECT * FROM pengumuman ORDER BY id_pengumuman DESC LIMIT 3");
     if (mysqli_num_rows($query_pengumuman_guru) > 0) {
         while ($p_guru = mysqli_fetch_assoc($query_pengumuman_guru)) {
     ?>
-            <div style="border-bottom: 1px solid #edf2f7; padding: 15px 0; margin-bottom: 5px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <h4 style="margin: 0; color: #0f5132; font-size: 16px; font-weight: 700;"><?php echo htmlspecialchars($p_guru['judul']); ?></h4>
-                    <span style="font-size: 12px; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 12px;">
+            <div class="announcement-item">
+                <div class="announcement-head">
+                    <h4><?php echo htmlspecialchars($p_guru['judul']); ?></h4>
+                    <span class="announcement-date">
                         <i class="bi bi-calendar3"></i> <?php echo date('d M Y', strtotime($p_guru['tanggal_buat'])); ?>
                     </span>
                 </div>
-                <p style="margin: 0; color: #475569; font-size: 14px; line-height: 1.5;">
-                    <?php echo nl2br(htmlspecialchars($p_guru['isi_pengumuman'])); ?>
-                </p>
+                <p><?php echo nl2br(htmlspecialchars($p_guru['isi_pengumuman'])); ?></p>
             </div>
     <?php
         }
     } else {
-        echo "<p style='color: #94a3b8; font-size: 14px; text-align: center; padding: 10px 0;'>Belum ada informasi atau pengumuman dari admin sekolah.</p>";
+        echo "<p class='announcement-empty'>Belum ada informasi atau pengumuman dari admin sekolah.</p>";
     }
     ?>
 </div>

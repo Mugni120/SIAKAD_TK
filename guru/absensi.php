@@ -369,6 +369,7 @@ $sudah_absen = ($jml_hadir + $jml_izin + $jml_sakit + $jml_alpha) > 0;
             text-align: center !important;
         }
     </style>
+    <link rel="stylesheet" href="../assets/css/cards.css?v=8">
 </head>
 
 <body>

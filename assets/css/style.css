@@ -7,9 +7,14 @@
 }
 
 body {
-    background-color: #f4f6f9;
+    background-color: #f4f7f6;
+    background-image:
+        radial-gradient(circle at 8% 4%, rgba(13, 148, 136, 0.07), transparent 28%),
+        radial-gradient(circle at 92% 96%, rgba(14, 165, 233, 0.06), transparent 30%);
+    background-attachment: fixed;
     color: #333;
     display: flex;
+    min-height: 100vh;
 }
 
 /* Layout Utama */
@@ -71,6 +76,7 @@ body {
 .main-content {
     margin-left: 250px;
     width: calc(100% - 250px);
+    min-width: 0;
     display: flex;
     flex-direction: column;
 }
@@ -78,10 +84,11 @@ body {
 /* Topbar Styling */
 .topbar {
     background-color: #fff;
-    height: 60px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     padding: 0 30px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
@@ -94,6 +101,8 @@ body {
 /* Container Konten */
 .container {
     padding: 30px;
+    min-width: 0;
+    max-width: 100%;
     flex: 1;
 }
 
@@ -274,4 +283,167 @@ table.data-table tr:hover { background-color: #f8fafc; }
 }
 .main-content.expanded {
     margin-left: 0px;
+}
+
+/* ============================================================
+   Responsive layout
+   Sidebar berubah menjadi navigasi atas pada layar kecil supaya
+   konten tidak terpotong dan tidak ada scroll horizontal.
+   ============================================================ */
+.row > * {
+    min-width: 0;
+}
+
+.table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 991.98px) {
+    body {
+        display: block;
+    }
+
+    .wrapper {
+        display: block;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+    }
+
+    .sidebar .brand {
+        padding: 16px 20px;
+        text-align: left;
+    }
+
+    .sidebar ul,
+    .sidebar .nav {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 6px;
+        padding: 10px 12px;
+    }
+
+    .sidebar ul li {
+        flex: 1 1 150px;
+        min-width: 0;
+    }
+
+    .sidebar ul li a,
+    .sidebar .nav-link {
+        display: block;
+        margin-bottom: 0;
+        padding: 9px 12px;
+        text-align: center;
+        white-space: normal !important;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li.active a {
+        padding-left: 12px;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .topbar {
+        height: auto;
+        min-height: 64px;
+        flex-wrap: wrap;
+        padding: 14px 20px;
+    }
+
+    .container {
+        padding: 20px 16px;
+    }
+
+    .page-title {
+        margin-bottom: 18px;
+    }
+
+    /* Halaman admin yang memakai grid Bootstrap. */
+    .container-fluid > .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .container-fluid > .row > .sidebar {
+        display: block !important;
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 0 !important;
+    }
+
+    .container-fluid > .row > .sidebar .sidebar-sticky {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    .container-fluid > .row > .sidebar h4 {
+        margin-bottom: 12px !important;
+        font-size: 17px;
+    }
+
+    .container-fluid > .row > main {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        padding: 20px 16px !important;
+    }
+
+    .container-fluid > .row > main > .d-flex {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sidebar ul li {
+        flex: 1 1 140px;
+    }
+
+    .topbar {
+        padding: 12px 14px;
+    }
+
+    .topbar .user-info {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 16px 12px;
+    }
+
+    .page-title {
+        font-size: 21px;
+    }
+
+    .table-container,
+    .form-container {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .sidebar ul li {
+        flex: 1 1 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .main-content {
+        transition: none;
+    }
 }

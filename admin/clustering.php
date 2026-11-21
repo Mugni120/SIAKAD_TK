@@ -160,7 +160,7 @@ if(!empty($data)) {
     <title>K-Means Clustering - Admin SIAKAD TK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-    <link href="../assets/css/style.css?v=2" rel="stylesheet">
+    <link href="../assets/css/style.css?v=4" rel="stylesheet">
     <style>
         .cluster-card { border-left: 5px solid; }
         .cluster-a { border-color: #28a745; }
@@ -181,6 +181,7 @@ if(!empty($data)) {
         .sidebar .nav-link { color: rgba(255,255,255,.85) !important; white-space: nowrap; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #ffffff !important; background-color: rgba(13,148,136,.25) !important; border-radius: 6px; }
     </style>
+    <link href="../assets/css/cards.css?v=8" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">

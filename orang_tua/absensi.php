@@ -54,6 +54,7 @@ $query_riwayat = mysqli_query($koneksi, "SELECT * FROM absensi WHERE id_siswa = 
         td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
         .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #e2e8f0; color: #475569; }
     </style>
+    <link rel="stylesheet" href="../assets/css/cards.css?v=8">
 </head>
 <body>
 
@@ -66,7 +67,7 @@ $query_riwayat = mysqli_query($koneksi, "SELECT * FROM absensi WHERE id_siswa = 
         <a href="dashboard.php" class="btn-back"><i class="bi bi-arrow-left"></i> Kembali ke Dashboard</a>
     </div>
 
-    <div class="card">
+    <div class="card absensi-main-card">
         <div class="absensi-grid">
             <div class="absensi-card bg-hadir"><div>Hadir</div><div class="counter"><?php echo $absensi['total_hadir'] ?? 0; ?></div></div>
             <div class="absensi-card bg-sakit"><div>Sakit</div><div class="counter"><?php echo $absensi['total_sakit'] ?? 0; ?></div></div>
@@ -74,18 +75,20 @@ $query_riwayat = mysqli_query($koneksi, "SELECT * FROM absensi WHERE id_siswa = 
             <div class="absensi-card bg-alfa"><div>Alpha</div><div class="counter"><?php echo $absensi['total_alfa'] ?? 0; ?></div></div>
         </div>
 
-        <table>
-            <thead><tr><th>Tanggal</th><th>Status</th><th>Catatan Guru</th></tr></thead>
-            <tbody>
-                <?php while($row = mysqli_fetch_assoc($query_riwayat)){ ?>
-                <tr>
-                    <td style="font-weight:600;"><?php echo $row['tanggal']; ?></td>
-                    <td><span class="badge"><?php echo $row['status']; ?></span></td>
-                    <td style="color: #64748b;"><?php echo !empty($row['keterangan']) ? $row['keterangan'] : '-'; ?></td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Tanggal</th><th>Status</th><th>Catatan Guru</th></tr></thead>
+                <tbody>
+                    <?php while($row = mysqli_fetch_assoc($query_riwayat)){ ?>
+                    <tr>
+                        <td style="font-weight:600;"><?php echo $row['tanggal']; ?></td>
+                        <td><span class="badge"><?php echo $row['status']; ?></span></td>
+                        <td style="color: #64748b;"><?php echo !empty($row['keterangan']) ? $row['keterangan'] : '-'; ?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

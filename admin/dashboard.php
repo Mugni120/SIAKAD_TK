@@ -42,52 +42,112 @@ include 'template/header.php';
 <h2 class="page-title">Dashboard Analisis</h2>
 
 <div class="card-grid">
-    <div class="card">
-        <h3>Total Peserta Didik</h3>
-        <p><?php echo $data_siswa['total']; ?> Siswa</p>
+    <div class="card card-teal has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-people-fill"></i></span>
+            <span class="card-visual-label">Data Master</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Total Peserta Didik</span>
+            <p class="card-value"><?php echo $data_siswa['total']; ?> <small>Siswa</small></p>
+            <p class="card-desc">Peserta didik aktif yang terdaftar di sekolah.</p>
+            <a href="siswa.php" class="card-action">Lihat data <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-green">
-        <h3>Tenaga Pendidik (Guru)</h3>
-        <p><?php echo $data_guru['total']; ?> Orang</p>
+
+    <div class="card card-green has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-person-badge-fill"></i></span>
+            <span class="card-visual-label">Tenaga Pendidik</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Guru</span>
+            <p class="card-value"><?php echo $data_guru['total']; ?> <small>Orang</small></p>
+            <p class="card-desc">Guru yang mendampingi anak didik setiap hari.</p>
+            <a href="guru.php" class="card-action">Kelola guru <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-yellow">
-        <h3>Rombongan Belajar (Kelas)</h3>
-        <p><?php echo $data_kelas['total']; ?> Kelas</p>
+
+    <div class="card card-yellow has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-door-open-fill"></i></span>
+            <span class="card-visual-label">Rombongan Belajar</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Kelas</span>
+            <p class="card-value"><?php echo $data_kelas['total']; ?> <small>Kelas</small></p>
+            <p class="card-desc">Kelas aktif yang tersedia pada tahun ajaran ini.</p>
+            <a href="kelas.php" class="card-action">Lihat kelas <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
 </div>
 
-<div class="card-grid" style="margin-top: 20px;">
-    <div class="card card-blue">
-        <h3>Tagihan SPP</h3>
-        <p><?php echo $data_tagihan['total']; ?> Tagihan</p>
-        <small><?php echo $data_tagihan['lunas']; ?> Lunas / <?php echo $data_tagihan['belum_bayar']; ?> Belum Bayar</small>
+<div class="card-grid">
+    <div class="card card-blue has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-receipt-cutoff"></i></span>
+            <span class="card-visual-label">Keuangan</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Tagihan SPP</span>
+            <p class="card-value"><?php echo $data_tagihan['total']; ?> <small>Tagihan</small></p>
+            <p class="card-desc"><?php echo $data_tagihan['lunas']; ?> lunas / <?php echo $data_tagihan['belum_bayar']; ?> belum bayar.</p>
+            <a href="tagihan.php" class="card-action">Buka tagihan <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-purple">
-        <h3>Transaksi Berhasil</h3>
-        <p><?php echo $data_transaksi['total']; ?> Transaksi</p>
+
+    <div class="card card-purple has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-wallet2"></i></span>
+            <span class="card-visual-label">Pembayaran</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">Transaksi Berhasil</span>
+            <p class="card-value"><?php echo $data_transaksi['total']; ?> <small>Transaksi</small></p>
+            <p class="card-desc">Pembayaran SPP yang sudah berhasil diproses.</p>
+            <a href="tagihan.php" class="card-action">Lihat transaksi <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-orange">
-        <h3>WA Terkirim</h3>
-        <p><?php echo $data_wa['total']; ?> Pesan</p>
+
+    <div class="card card-orange has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-whatsapp"></i></span>
+            <span class="card-visual-label">Notifikasi</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">WA Terkirim</span>
+            <p class="card-value"><?php echo $data_wa['total']; ?> <small>Pesan</small></p>
+            <p class="card-desc">Notifikasi absensi yang terkirim ke orang tua.</p>
+            <a href="wa_logs.php" class="card-action">Lihat log <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
-    
-    <div class="card card-teal">
-        <h3>QR Code Aktif</h3>
-        <p><?php echo $data_qr['total']; ?> Kartu</p>
+
+    <div class="card card-rose has-visual">
+        <div class="card-visual">
+            <span class="card-visual-icon"><i class="bi bi-qr-code-scan"></i></span>
+            <span class="card-visual-label">Absensi</span>
+        </div>
+        <div class="card-content">
+            <span class="card-eyebrow">QR Code Aktif</span>
+            <p class="card-value"><?php echo $data_qr['total']; ?> <small>Kartu</small></p>
+            <p class="card-desc">Kartu QR siswa siap dipakai untuk absensi.</p>
+            <a href="qr_generator.php" class="card-action">Kelola QR <i class="bi bi-arrow-right"></i></a>
+        </div>
     </div>
 </div>
 
-<div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-    <h3>Selamat Datang di Panel Administrasi</h3>
-    <p style="margin-top: 10px; color: #666; line-height: 1.6;">
-        Sistem ini dirancang untuk mempermudah pengelolaan manajemen data master sekolah secara terpusat. 
-        Anda dapat memantau data guru, melakukan pembaruan status kelas, serta memvalidasi pendaftaran siswa secara efisien. 
-        Gunakan menu navigasi di bilah samping kiri untuk memulai pengolahan data.
-    </p>
+<div class="card info-card">
+    <div class="info-card-heading">
+        <span class="info-icon"><i class="bi bi-stars"></i></span>
+        <div>
+            <h3>Selamat Datang di Panel Administrasi</h3>
+            <p>
+                Sistem ini dirancang untuk mempermudah pengelolaan manajemen data master sekolah secara terpusat.
+                Anda dapat memantau data guru, melakukan pembaruan status kelas, serta memvalidasi pendaftaran siswa secara efisien.
+                Gunakan menu navigasi di bilah samping kiri untuk memulai pengolahan data.
+            </p>
+        </div>
+    </div>
 </div>
 
 <?php 
