@@ -1658,3 +1658,81 @@
         display: none !important;
     }
 }
+/* ------------------------------------------------------------
+   Modern tables
+   ------------------------------------------------------------ */
+.card table,
+.table-container table,
+.student-list-card table,
+.table-card table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0;
+}
+
+.card thead th,
+.table-container thead th,
+.student-list-card thead th,
+.table-card thead th {
+    background: linear-gradient(135deg, var(--card-accent), var(--card-accent-2));
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 15px 18px;
+    border: 0;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.card tbody td,
+.table-container tbody td,
+.student-list-card tbody td,
+.table-card tbody td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #eef2f7;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #334155;
+}
+
+.card tbody tr:nth-child(even) td,
+.table-container tbody tr:nth-child(even) td,
+.student-list-card tbody tr:nth-child(even) td,
+.table-card tbody tr:nth-child(even) td {
+    background: #fbfdff;
+}
+
+.card tbody tr:hover td,
+.table-container tbody tr:hover td,
+.student-list-card tbody tr:hover td,
+.table-card tbody tr:hover td {
+    background: #ecfdf5;
+    transition: background 0.2s ease;
+}
+
+.card tbody tr:last-child td,
+.table-container tbody tr:last-child td,
+.student-list-card tbody tr:last-child td,
+.table-card tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.card tbody td[colspan],
+.table-container tbody td[colspan],
+.student-list-card tbody td[colspan],
+.table-card tbody td[colspan] {
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 30px 18px;
+}
+
+.table-container {
+    padding: 0;
+    overflow-x: auto;
+}
