@@ -62,7 +62,7 @@ $q = mysqli_query($koneksi, "SELECT q.*, s.nama_siswa, k.nama_kelas
         .sidebar .nav-link { color: rgba(255,255,255,.85) !important; white-space: nowrap; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #ffffff !important; background-color: rgba(13,148,136,.25) !important; border-radius: 6px; }
     </style>
-    <link href="../assets/css/cards.css?v=8" rel="stylesheet">
+    <link href="../assets/css/cards.css?v=9" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">

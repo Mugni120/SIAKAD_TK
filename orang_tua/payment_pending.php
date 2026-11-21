@@ -22,7 +22,7 @@ $order_id = isset($_GET['order_id']) ? mysqli_real_escape_string($koneksi, $_GET
         .pending-card { max-width: 500px; margin: 50px auto; padding: 40px; border-radius: 20px; text-align: center; }
         .pending-icon { font-size: 80px; color: #ffc107; }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=8">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=9">
 </head>
 <body>
     <div class="container">

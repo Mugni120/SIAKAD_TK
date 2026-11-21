@@ -77,7 +77,7 @@ $status = isset($_GET['status']) ? $_GET['status'] : null;
             margin-top: 20px;
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=8">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=9">
 </head>
 <body>
     <nav class="navbar navbar-dark navbar-custom mb-4">
