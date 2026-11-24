@@ -31,7 +31,7 @@ $q = mysqli_query($koneksi, "SELECT * FROM wa_logs ORDER BY waktu_kirim DESC LIM
         .sidebar .nav-link { color: rgba(255,255,255,.85) !important; white-space: nowrap; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #ffffff !important; background-color: rgba(13,148,136,.25) !important; border-radius: 6px; }
     </style>
-    <link href="../assets/css/cards.css?v=12" rel="stylesheet">
+    <link href="../assets/css/cards.css?v=13" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">

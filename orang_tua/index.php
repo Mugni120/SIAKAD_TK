@@ -42,7 +42,7 @@ if(isset($_GET['id_siswa'])) {
         .avatar { width: 70px; height: 70px; border-radius: 50%; background: #e8f5e9; color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; font-size: 28px; font-weight: 700; }
         .btn { padding: 10px 20px; border-radius: 24px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; background: var(--primary); color: white; border: none; cursor: pointer; }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=12">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=13">
 </head>
 <body>
 

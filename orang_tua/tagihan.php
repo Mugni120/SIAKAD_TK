@@ -35,7 +35,7 @@ $q_tagihan = mysqli_query($koneksi, "SELECT * FROM tagihan WHERE id_siswa = '$id
         .status-lunas { color: #28a745; font-weight: bold; }
         .status-belum { color: #dc3545; font-weight: bold; }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=12">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=13">
 </head>
 <body>
     <nav class="navbar navbar-dark navbar-custom mb-4">

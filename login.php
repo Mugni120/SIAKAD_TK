@@ -130,7 +130,7 @@ if (isset($_SESSION['level'])) {
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="assets/css/cards.css?v=12">
+    <link rel="stylesheet" href="assets/css/cards.css?v=13">
 </head>
 
 <body>

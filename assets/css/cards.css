@@ -692,7 +692,7 @@
 .table-container {
     padding: 24px;
     margin-top: 15px;
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -706,7 +706,7 @@
 }
 
 .table-card {
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     border: 1px solid var(--card-line);
     border-radius: 20px;
@@ -720,7 +720,7 @@
 }
 
 .student-list-card {
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1666,6 +1666,8 @@
 .student-list-card table,
 .table-card table {
     width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
     margin: 0;
@@ -1684,6 +1686,8 @@
     padding: 15px 18px;
     border: 0;
     white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
     position: sticky;
     top: 0;
     z-index: 2;
@@ -1698,6 +1702,8 @@
     vertical-align: middle;
     font-size: 14px;
     color: #334155;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .card tbody tr:nth-child(even) td,

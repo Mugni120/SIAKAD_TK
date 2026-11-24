@@ -297,7 +297,7 @@ table.data-table tr:hover { background-color: #f8fafc; }
 .table-responsive {
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
