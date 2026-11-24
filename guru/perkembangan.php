@@ -154,7 +154,7 @@ $id_siswa = isset($_GET['id_siswa']) ? mysqli_real_escape_string($koneksi, $_GET
         .btn-submit { background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;}
         .text-center { text-align: center !important; }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=10">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=11">
 </head>
 <body>
 
