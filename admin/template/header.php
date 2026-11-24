@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css?v=4">
-    <link rel="stylesheet" href="../assets/css/cards.css?v=11">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=12">
 </head>
 
 <body>

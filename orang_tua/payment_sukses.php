@@ -89,7 +89,7 @@ if ($d && $d['transaction_status'] !== 'settlement') {
             100% { transform: scale(1); }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=11">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=12">
 </head>
 <body>
     <div class="container">
