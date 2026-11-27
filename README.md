@@ -82,7 +82,7 @@ Copy-Item .env.example .env
 Cara standar Laravel:
 
 ```powershell
-& 'C:\xampp\php\php.exe' artisan serve
+php artisan serve
 ```
 
 atau:
