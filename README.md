@@ -85,6 +85,12 @@ Cara standar Laravel:
 php artisan serve
 ```
 
+Jika `php` belum dikenali di terminal, gunakan path PHP XAMPP:
+
+```powershell
+& 'C:\xampp\php\php.exe' artisan serve
+```
+
 atau:
 
 ```powershell
