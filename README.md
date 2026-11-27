@@ -79,18 +79,29 @@ Copy-Item .env.example .env
 
 ### 5. Jalankan Aplikasi
 
-Melalui XAMPP Apache:
+Cara standar Laravel:
+
+```powershell
+& 'C:\xampp\php\php.exe' artisan serve
+```
+
+atau:
+
+```powershell
+composer run dev
+```
+
+Lalu buka `http://127.0.0.1:8000/`.
+
+Catatan:
+- Apache tidak wajib dijalankan.
+- MySQL tetap harus aktif karena aplikasi legacy menggunakan `config/koneksi.php`.
+- Jika ingin port lain, gunakan `php artisan serve --port=8099`.
+
+Melalui XAMPP Apache (opsional):
 
 1. Nyalakan Apache dan MySQL.
 2. Buka `http://localhost/siakad_tk/`.
-
-Melalui Laravel server:
-
-```powershell
-& 'C:\xampp\php\php.exe' artisan serve --host=127.0.0.1 --port=8099
-```
-
-Lalu buka `http://127.0.0.1:8099/`.
 
 ## Database
 
