@@ -54,7 +54,7 @@ $query_riwayat = mysqli_query($koneksi, "SELECT * FROM absensi WHERE id_siswa = 
         td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
         .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #e2e8f0; color: #475569; }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=13">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=14">
 </head>
 <body>
 

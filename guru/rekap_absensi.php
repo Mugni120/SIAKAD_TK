@@ -304,7 +304,7 @@ $sudah_absen = $jml_hadir + $jml_izin + $jml_sakit + $jml_alpha;
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/cards.css?v=13">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=14">
 </head>
 
 <body>

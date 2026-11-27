@@ -6,7 +6,7 @@
     <title>SIAKAD Guru - TK Al-Manaarussa'diyyah</title>
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css?v=4">
-    <link rel="stylesheet" href="../assets/css/cards.css?v=13">
+    <link rel="stylesheet" href="../assets/css/cards.css?v=14">
 </head>
 <body>
 

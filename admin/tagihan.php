@@ -17,7 +17,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'list';
     <title>Tagihan SPP - Admin SIAKAD TK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-    <link href="../assets/css/style.css?v=4" rel="stylesheet">
+    <link href="../assets/css/style.css?v=6" rel="stylesheet">
 
     <style>
         /* Netralisir aturan .sidebar/body dari style.css agar grid Bootstrap berfungsi normal */
@@ -31,7 +31,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'list';
         .sidebar .nav-link { color: rgba(255,255,255,.85) !important; white-space: nowrap; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #ffffff !important; background-color: rgba(13,148,136,.25) !important; border-radius: 6px; }
     </style>
-    <link href="../assets/css/cards.css?v=13" rel="stylesheet">
+    <link href="../assets/css/cards.css?v=14" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
